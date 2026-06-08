@@ -71,7 +71,7 @@ public class DaoDienCutsceneToanTap : MonoBehaviour
             scriptDiChuyen.transform.position = Vector3.MoveTowards(
                 scriptDiChuyen.transform.position,
                 new Vector3(diemFloriaDungHai.position.x, scriptDiChuyen.transform.position.y, diemFloriaDungHai.position.z),
-                1.5f * Time.deltaTime
+                1f * Time.deltaTime
             );
             yield return null;
         }
