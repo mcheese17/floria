@@ -1,43 +1,68 @@
 ﻿using UnityEngine;
-using System.Collections.Generic; // Bắt buộc phải có để dùng Danh sách (List)
+using System.Collections;
 
 public class SpawnerQuaiVat : MonoBehaviour
 {
-    [Header("Cài đặt Vị trí & Số lượng")]
-    [Tooltip("Kéo thả tất cả các Diem_Spawn vào đây")]
-    public Transform[] cacDiemSpawn;
-    public int soLuongSauCanSinh = 2; // Số lượng sâu muốn xuất hiện mỗi lần chơi
+    [Header("Cài đặt Vị trí 3 Tầng")]
+    public Transform diemSpawnTang1;
+    public Transform diemSpawnTang2; // Khuyên dùng tầng 2 chỉ đẻ sâu bay
+    public Transform diemSpawnTang3;
 
-    [Header("Kho Quái Vật (Prefabs)")]
-    [Tooltip("Kéo thả Prefab Sâu Xanh, Sên... ở cửa sổ Project vào đây")]
-    public GameObject[] danhSachLoaiSau;
+    [Header("Kho Quái Vật")]
+    public GameObject[] danhSachTatCaSau;
+    public GameObject[] danhSachSauBay;
+
+    [Header("Nhịp độ thả quái")]
+    public float thoiGianGiua2LanTha = 3f;
+
+    private int soSauDaSpawn = 0; // Bộ đếm số lượng đã xuất xưởng
+    private GameManager trongTai;
 
     void Start()
     {
-        // Kiểm tra an toàn: Nếu quên chưa nạp điểm spawn hoặc quên nạp prefab sâu thì báo lỗi và dừng lại
-        if (cacDiemSpawn.Length == 0 || danhSachLoaiSau.Length == 0) return;
+        trongTai = FindAnyObjectByType<GameManager>();
+        StartCoroutine(SanXuatQuaiVat());
+    }
 
-        // Chống lỗi ngớ ngẩn: Lỡ em đòi sinh 5 con mà chỉ có 3 điểm spawn
-        int soLuongThucTe = Mathf.Min(soLuongSauCanSinh, cacDiemSpawn.Length);
-
-        // Tạo một hộp bốc thăm chứa tất cả các điểm spawn
-        List<Transform> hopBocTham = new List<Transform>(cacDiemSpawn);
-
-        for (int i = 0; i < soLuongThucTe; i++)
+    IEnumerator SanXuatQuaiVat()
+    {
+        // Chạy vô tận trong suốt màn chơi
+        while (true)
         {
-            // 1. Nhắm mắt bốc đại 1 vị trí trong hộp
-            int viTriNgauNhien = Random.Range(0, hopBocTham.Count);
-            Transform diemDuocChon = hopBocTham[viTriNgauNhien];
+            yield return new WaitForSeconds(thoiGianGiua2LanTha);
 
-            // 2. Nhắm mắt bốc đại 1 loại sâu (Sên hoặc Sâu Xanh)
-            int loaiSauNgauNhien = Random.Range(0, danhSachLoaiSau.Length);
-            GameObject quaiVatDuocChon = danhSachLoaiSau[loaiSauNgauNhien];
+            // CẦU DAO CHÍNH: Chỉ đẻ nếu chưa hết hạn ngạch
+            if (trongTai != null && soSauDaSpawn < trongTai.tongSoSauDuocPhepSpawn)
+            {
+                if (danhSachTatCaSau.Length > 0 && danhSachSauBay.Length > 0)
+                {
+                    int tangRandom = Random.Range(1, 4);
+                    Transform diemDuocChon = null;
+                    GameObject loaiSauDuocChon = null;
 
-            // 3. Phép thuật biến hình: Triệu hồi con sâu ra đúng vị trí đó
-            Instantiate(quaiVatDuocChon, diemDuocChon.position, diemDuocChon.rotation);
+                    if (tangRandom == 1)
+                    {
+                        diemDuocChon = diemSpawnTang1;
+                        loaiSauDuocChon = danhSachTatCaSau[Random.Range(0, danhSachTatCaSau.Length)];
+                    }
+                    else if (tangRandom == 2)
+                    {
+                        diemDuocChon = diemSpawnTang2;
+                        loaiSauDuocChon = danhSachSauBay[Random.Range(0, danhSachSauBay.Length)];
+                    }
+                    else if (tangRandom == 3)
+                    {
+                        diemDuocChon = diemSpawnTang3;
+                        loaiSauDuocChon = danhSachTatCaSau[Random.Range(0, danhSachTatCaSau.Length)];
+                    }
 
-            // 4. QUAN TRỌNG: Vứt cái điểm vừa bốc được ra khỏi hộp để con thứ 2 không bị sinh đè lên vị trí cũ!
-            hopBocTham.RemoveAt(viTriNgauNhien);
+                    if (diemDuocChon != null && loaiSauDuocChon != null)
+                    {
+                        Instantiate(loaiSauDuocChon, diemDuocChon.position, diemDuocChon.rotation);
+                        soSauDaSpawn++; // Cập nhật sổ sách
+                    }
+                }
+            }
         }
     }
 }

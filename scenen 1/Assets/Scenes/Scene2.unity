@@ -7222,9 +7222,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1690204037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d560b8e3ab197c74e915e7f75dcc152c, type: 3}
+  m_Script: {fileID: 11500000, guid: ac8fac20b97cbd14fa6d2a0d42990662, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerQuaiVat
+  m_EditorClassIdentifier: Assembly-CSharp::RandomSauScene2
   cacDiemSpawn:
   - {fileID: 887845905}
   - {fileID: 1526286290}
@@ -7996,6 +7996,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HeThongHoiSinh
   manHinhDen: {fileID: 210387874}
   thoiGianFade: 0.5
+  animNhanVat: {fileID: 0}
+  scriptDiChuyen: {fileID: 0}
+  rbNhanVat: {fileID: 0}
 --- !u!65 &1892370310
 BoxCollider:
   m_ObjectHideFlags: 0

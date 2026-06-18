@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b35092a7076825d46811e24eeaa51f79, type: 3}
       propertyPath: m_TagString
-      value: VienDan
+      value: SauBo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -150,6 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SauCamTu
   tocDo: 0.3
+  hieuUngBiBanChet: {fileID: 41030886942596248, guid: 54b0e9720349614409f63ebda452c721, type: 3}
+  hieuUngTauThoat: {fileID: 6955203667425335453, guid: ce1f079ab4b9430409612034bac451f3, type: 3}
+  tiengSauChet: {fileID: 8300000, guid: 59a55f39a7af49642986c074f6d1ec9e, type: 3}
 --- !u!54 &7839513586840327556
 Rigidbody:
   m_ObjectHideFlags: 0

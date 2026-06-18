@@ -12,6 +12,11 @@ public class FloriaBanSung : MonoBehaviour
     public float doTreBan = 0.3f;
     public float thoiGianHoiChieu = 0.5f;
 
+    // --- THÊM Ổ CẮM ÂM THANH ---
+    [Header("Âm thanh Bắn")]
+    public AudioSource loaCuaFloria;
+    public AudioClip tiengBanSung;
+
     private bool dangBan = false;
 
     void Update()
@@ -26,37 +31,35 @@ public class FloriaBanSung : MonoBehaviour
     {
         dangBan = true;
 
-        // 1. FIX LỖI SPAM PHÍM: Ép Animation phải reset chạy lại đúng từ Frame 0
         anim.Play("Shooting", -1, 0f);
 
-        // 2. Đợi tay giơ lên ngang ngực
         yield return new WaitForSeconds(doTreBan);
 
-        // 3. Sinh ra viên đạn ngay tại nòng súng
+        // --- GỌI ÂM THANH BẮN SÚNG Ở ĐÂY ---
+        if (loaCuaFloria != null && tiengBanSung != null)
+        {
+            loaCuaFloria.PlayOneShot(tiengBanSung);
+        }
+
         GameObject dan = Instantiate(prefabVienDan, diemRaDan.position, diemRaDan.rotation);
         VienDan scriptDan = dan.GetComponent<VienDan>();
 
-        // 4. FIX LỖI HƯỚNG ĐẠN: Dùng transform.forward.x (Mặt nhân vật đang nhìn về đâu)
-        // Nếu tọa độ X âm (Mặt đang nhìn sang TRÁI)
         if (transform.forward.x < -0.01f)
         {
             scriptDan.huongBay = Vector3.left;
-            dan.transform.rotation = Quaternion.Euler(0, 180, 0); // Lật đuôi đạn
+            dan.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        // Nếu tọa độ X dương (Mặt đang nhìn sang PHẢI)
         else if (transform.forward.x > 0.01f)
         {
             scriptDan.huongBay = Vector3.right;
             dan.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        // Phòng hờ lúc mới vào game chưa đi bước nào (Mặc định bắn phải)
         else
         {
             scriptDan.huongBay = Vector3.right;
             dan.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
-        // 5. Đợi súng nguội rồi mới cho bắn phát tiếp theo
         yield return new WaitForSeconds(thoiGianHoiChieu);
         dangBan = false;
     }

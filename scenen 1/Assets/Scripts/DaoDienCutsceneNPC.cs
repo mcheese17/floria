@@ -86,7 +86,7 @@ public class DaoDienCutsceneNPC : MonoBehaviour
         // --- CÂU 1: FLORIA NÓI ---
         animNPC.CrossFadeInFixedTime("Sitting Talking", thoiGianChuyenAnim);
         animFloria.CrossFadeInFixedTime("Talking_Floria", thoiGianChuyenAnim);
-        textPhuDe.text = "Why are you so downcast?";
+        textPhuDe.text = "Tại sao anh lại buồn bã như thế?";
         nguonAmThanh.clip = audioFloria1; nguonAmThanh.Play();
         yield return new WaitForSeconds(timeCau1);
 
@@ -99,7 +99,7 @@ public class DaoDienCutsceneNPC : MonoBehaviour
         animFloria.SetFloat("Speed", 0f);
 
         animNPC.CrossFadeInFixedTime("Sitting Talking", thoiGianChuyenAnim);
-        textPhuDe.text = "Our crops are devastated. No matter what we do, we cannot drive them off. Please, lend us your aid. If this continues, we cannot survive.";
+        textPhuDe.text = "Mùa màng của chúng tôi bị phá hoại, dù có cố gắng thế nào cũng không thể đuổi đánh chúng đi, hãy giúp chúng tôi. Cứ thế này, chúng tôi không thể nào mà sống tiếp.";
         nguonAmThanh.clip = audioNPC1; nguonAmThanh.Play();
         yield return new WaitForSeconds(timeCau2);
 
@@ -110,7 +110,7 @@ public class DaoDienCutsceneNPC : MonoBehaviour
         // --- CÂU 3: FLORIA NÓI ---
         animNPC.CrossFadeInFixedTime("Sitting Talking", thoiGianChuyenAnim);
         animFloria.CrossFadeInFixedTime("Talking_Floria", thoiGianChuyenAnim);
-        textPhuDe.text = "Alright, I’ll help you.";
+        textPhuDe.text = "Được, tôi sẽ giúp anh.";
         nguonAmThanh.clip = audioFloria2; nguonAmThanh.Play();
         yield return new WaitForSeconds(timeCau3);
 
@@ -123,7 +123,7 @@ public class DaoDienCutsceneNPC : MonoBehaviour
         animFloria.SetFloat("Speed", 0f);
 
         animNPC.CrossFadeInFixedTime("Sitting Talking", thoiGianChuyenAnim);
-        textPhuDe.text = "Just keep heading forward and you’ll see. The region is crawling with vermin.";
+        textPhuDe.text = "Cô cứ đi tiếp và sẽ thấy, vùng đó có rất nhiều sâu bọ.";
         nguonAmThanh.clip = audioNPC2; nguonAmThanh.Play();
         yield return new WaitForSeconds(timeCau4);
 
